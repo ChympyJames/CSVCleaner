@@ -1,9 +1,10 @@
 import streamlit as st
 import chardet
 import io
+import re
+from datetime import datetime
 
 st.set_page_config(page_title="Platby CSV Cleaner", layout="centered")
-
 st.title("🧹 Platby CSV Cleaner")
 
 uploaded_file = st.file_uploader("Upload your CSV or TXT file", type=["csv", "txt"])
@@ -18,7 +19,6 @@ def transform_filename(original_name: str) -> str:
     return "platby_cleaned.csv"
 
 if uploaded_file is not None:
-    # Detect encoding using chardet
     raw_bytes = uploaded_file.read()
     result = chardet.detect(raw_bytes)
     encoding = result['encoding']
@@ -37,13 +37,18 @@ if uploaded_file is not None:
 
             # Prepare output
             output = io.StringIO("\n".join(processed_lines))
+
+            # Use the original filename to generate a cleaner one
+            output_filename = transform_filename(uploaded_file.name)
+
             st.success("✅ File processed successfully!")
 
             st.download_button(
                 label="⬇️ Download cleaned CSV",
                 data=output.getvalue(),
-                file_name="platby_cleaned.csv",
+                file_name=output_filename,
                 mime="text/csv"
             )
+
     except Exception as e:
         st.error(f"❌ Could not decode the file: {str(e)}")
