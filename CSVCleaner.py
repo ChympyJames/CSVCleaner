@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 
 st.set_page_config(page_title="Platby CSV Cleaner", layout="centered")
-st.title("🧹 Platby CSV Cleaner")
+st.title("🧹CSV Cleaner")
 
 uploaded_file = st.file_uploader("Upload your CSV or TXT file", type=["csv", "txt"])
 
