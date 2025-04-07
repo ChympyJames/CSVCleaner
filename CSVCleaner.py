@@ -15,7 +15,7 @@ def transform_filename(original_name: str) -> str:
     if match:
         formatted_date = f"{match.group(1)}_{match.group(2)}_{match.group(3)}"
         new_name = re.sub(r"20\d{6}", formatted_date, original_name)
-        return new_name.replace(" ", "_").replace(".csv", "").replace(".txt", "") + "_cleaned.csv"
+        return new_name.replace(" ", "_").replace(".csv", "").replace(".txt", "")
     return "platby_cleaned.csv"
 
 if uploaded_file is not None:
