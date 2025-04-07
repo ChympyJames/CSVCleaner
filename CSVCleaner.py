@@ -8,6 +8,15 @@ st.title("🧹 Platby CSV Cleaner")
 
 uploaded_file = st.file_uploader("Upload your CSV or TXT file", type=["csv", "txt"])
 
+def transform_filename(original_name: str) -> str:
+    # Match 8-digit date pattern (e.g. 20250402)
+    match = re.search(r"(20\d{2})(\d{2})(\d{2})", original_name)
+    if match:
+        formatted_date = f"{match.group(1)}_{match.group(2)}_{match.group(3)}"
+        new_name = re.sub(r"20\d{6}", formatted_date, original_name)
+        return new_name.replace(" ", "_").replace(".csv", "").replace(".txt", "") + "_cleaned.csv"
+    return "platby_cleaned.csv"
+
 if uploaded_file is not None:
     # Detect encoding using chardet
     raw_bytes = uploaded_file.read()
