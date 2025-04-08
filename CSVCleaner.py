@@ -36,7 +36,8 @@ if uploaded_file is not None:
             processed_lines = [line.replace(';', ',') for line in processed_lines]
 
             # Prepare output
-            output = io.StringIO("\n".join(processed_lines))
+            csv_string = "\n".join(processed_lines)
+            output = io.BytesIO(csv_string.encode("utf-8"))
 
             # Use the original filename to generate a cleaner one
             output_filename = transform_filename(uploaded_file.name)
