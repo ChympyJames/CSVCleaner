@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 
 st.set_page_config(page_title="Platby CSV Cleaner", layout="centered")
-st.title("🧹 CSV Cleaner – Copy into Template")
+st.title("🧹 CSV Cleaner")
 
 # Load the fixed template file from disk (must exist in the repo)
 TEMPLATE_PATH = "template.csv"
@@ -20,7 +20,7 @@ def load_template():
 template_raw, has_bom = load_template()
 
 # Upload the source file (to clean)
-source_file = st.file_uploader("📤 Upload the RAW CSV file (to clean)", type=["csv", "txt"])
+source_file = st.file_uploader("📤 Upload a file", type=["csv", "txt"])
 
 def transform_filename(original_name: str) -> str:
     match = re.search(r"(20\d{2})(\d{2})(\d{2})", original_name)
@@ -58,7 +58,7 @@ if source_file:
 
     output_filename = transform_filename(source_file.name)
 
-    st.success("✅ File cleaned and merged into template!")
+    st.success("✅ Soubor vyčištěn")
 
     st.download_button(
         label="⬇️ Download Final CSV",
