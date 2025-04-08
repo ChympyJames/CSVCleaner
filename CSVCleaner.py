@@ -37,7 +37,7 @@ if uploaded_file is not None:
 
             # Prepare output
             csv_string = "\n".join(processed_lines)
-            output = io.BytesIO('\ufeff'.encode('utf-8') + csv_string.encode('utf-8'))
+            output = io.BytesIO('\ufeff'.encode('utf-8') + csv_string.encode("utf-8"))
 
             # Use the original filename to generate a cleaner one
             output_filename = transform_filename(uploaded_file.name)
